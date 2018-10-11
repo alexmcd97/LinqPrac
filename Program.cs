@@ -51,13 +51,6 @@ namespace LinqPractice
                 },
                 new Student()
                 {
-                    FirstName = "Laith",
-                    LastName = "Alfaloujeh",
-                    Classification = "Junior",
-                    Taken3350 = true,
-                },
-                new Student()
-                {
                     FirstName = "Michael",
                     LastName = "Hayes",
                     Classification = "Junior",
@@ -188,32 +181,85 @@ namespace LinqPractice
                     {"A","B","C","D","E","F","G","H","I","J","K","L"};
                 //Not Senior filter
                 var notseniorFiltered = students.Where(s => s.Classification != "Senior");
-                Console.WriteLine("All students who are not a Senior:");
+                Console.WriteLine("         All students who are not a Senior:");
                 foreach(Student s in notseniorFiltered)
                 {
                     Console.WriteLine(s);
                 }
                 //Taken 3350
                 var taken3350Filtered = students.Where(s => s.Taken3350 = true);
-                Console.WriteLine("All Students who have taken CIDM3350:");
+                Console.WriteLine("         All Students who have taken CIDM3350:");
                 foreach(Student s in taken3350Filtered)
                 {
                     Console.WriteLine(s);
                 }
                 //M or Lower Filter
                 var letterMFiltered = students.Where(s => mfilter.Any(x => s.FirstName.StartsWith(x)));
-                Console.WriteLine("All Students who have first names with m or lower:");
+                Console.WriteLine("         All Students who have first names with m or lower:");
                 foreach(Student s in letterMFiltered)
                 {
                     Console.WriteLine(s);
                 }
                 //L or higher filter
                 var letterLFiltered = students.Where(s => lfilter.Any(x => s.LastName.StartsWith(x)));
-                Console.WriteLine("All Students who have first names with m or lower:");
+                Console.WriteLine("         All Students who have first names with m or lower:");
                 foreach(Student s in letterLFiltered)
                 {
                     Console.WriteLine(s);
                 }
+
+                var fnameOrdered = students.OrderBy(s => s.FirstName);
+                Console.WriteLine("         Students ordered by first name:");
+                foreach(Student s in fnameOrdered)
+                {
+                    Console.WriteLine(s);
+                }
+
+                var lnameDescending = students.OrderByDescending(s => s.LastName);
+                Console.WriteLine("         Students ordered by Last Name in Descending Order:");
+                foreach(Student s in lnameDescending)
+                {
+                    Console.WriteLine(s);
+                }
+
+                var rankSorted = students.OrderBy(s => s.Classification);
+                Console.WriteLine("         Students ordered by classification");
+                foreach(Student s in rankSorted)
+                {
+                    Console.WriteLine(s);
+                }
+
+                var seniorLname = from s in students
+                                    where s.Classification == "Senior"
+                                    orderby s.LastName
+                                    select s;
+                Console.WriteLine("        Seniors ordered by last name:");
+                foreach(Student s in seniorLname)
+                {
+                    Console.WriteLine(s);
+                }
+
+                var notSeniorFname = from s in students
+                                    where s.Classification != "Senior"
+                                    orderby s.FirstName
+                                    select s;
+                Console.WriteLine("         Juniors ordered by first name:");
+                foreach(Student s in notSeniorFname)
+                {
+                    Console.WriteLine(s);
+                }
+
+                var groupedbyClassification = from s in students
+                                                group s by s.Classification into g
+                                                orderby g.Key
+                                                select g;
+                
+                Console.WriteLine("         All Students grouped by Classification");
+                foreach(Student s in groupedbyClassification)
+                {
+                    Console.WriteLine(s);
+                }
+                
             }
         }
                 

@@ -16,7 +16,7 @@ namespace LinqPractice
 
         public override string ToString()
         {
-            return $"{FirstName} - {LastName} - {Classification}";
+            return $"{FirstName} - {LastName} = {Classification}";
         }
     }
 }
